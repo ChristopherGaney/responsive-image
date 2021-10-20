@@ -6,7 +6,7 @@
 
     <img data-back="https://mysite.com/image-mobile.jpg|https://mysite.com/image-desktop.jpg">
 
-If the attribure is applied to an element other than <img>, then the image will be set as a background image.
+If the attribure is applied to an element other than image tag, then the image will be set as a background image.
 
 ## Contributing
 
