@@ -4,10 +4,10 @@
 
 ## Usage
 
-    <img data-back="https://mysite.com/image-mobile.jpg|https://mysite.com/image-desktop.jpg">
+<img data-back="https://mysite.com/image-mobile.jpg|https://mysite.com/image-desktop.jpg">
 
-If the attribute is applied to an element other than an image tag, then the image will be set as a background image.
+If the attribure is applied to an element other than <img>, then the image will be set as a background image.
 
 ## Contributing
 
-This plugin could definitely be built out in many ways. It could be made to support multiple breakpoints that are passed in through the data attribute, and the data attibute could be added to a Gutenberg block.
+This plugin could definitely be built out in many ways. It could be made to support multiple breakpoints that could be passed in through the data attribute and the data attibute could be added to an element inside a Gutenberg block.

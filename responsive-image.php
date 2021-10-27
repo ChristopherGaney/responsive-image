@@ -10,7 +10,6 @@ License: GPL2
 */
 
 function responsive_image_enqueue() {
-	echo "We Are Queing!";
       wp_register_script('responsive-image', plugin_dir_url( __FILE__ ) . 'dist/js/responsive-image.js', array('jquery'), '1.0.0', true);
       wp_enqueue_script('responsive-image');
   }
