@@ -4,7 +4,7 @@
 
 ## Usage
 
-<img data-back="https://mysite.com/image-mobile.jpg|https://mysite.com/image-desktop.jpg">
+`<img data-back="https://mysite.com/image-mobile.jpg|https://mysite.com/image-desktop.jpg">`
 
 (not implemented yet) If the attribute is applied to an element other than <img>, then the image will be set as a background image.
 
