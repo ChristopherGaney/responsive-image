@@ -13,4 +13,4 @@
 //import './block2/block.js';
 //import './block-news/block.js';
 //import './blockNews/block.js';
-import './responsiveBlock/block.js';
+import './responsiveImage/block.js';

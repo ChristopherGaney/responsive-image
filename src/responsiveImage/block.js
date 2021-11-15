@@ -1,5 +1,5 @@
 /**
- * BLOCK: zip-centered
+ * BLOCK: Responsive Image
  *
  * Registering a basic block with Gutenberg.
  * Simple block, renders and saves the same content without any interactivity.
@@ -22,12 +22,14 @@ import './style.scss';
 import './editor.scss';
 
 
-registerBlockType('cgb/alternativer', {   
-  title: 'responsiveBlock',
+registerBlockType('cgb/responsive-image', {   
+  title: 'Responsive Image',
   icon: 'saved',
   category: 'common',
   attributes: {
     selection: {
+      type: 'string',
+      default: 'img',
       attribute: 'val',
       selector: '.responsive_image'
     },
@@ -61,17 +63,6 @@ registerBlockType('cgb/alternativer', {
       if(attributes.mobileImgUrl) {
         return (
           <div className="enclosure">
-            <RadioControl
-              label="Element Type"
-              help="Use <img> or <div>"
-              selected={ attributes.selection || 'img' }
-              options={ [
-                  { label: 'Image', value: 'img' },
-                  { label: 'Div', value: 'div' },
-              ] }
-              onChange={ (newSel) => setAttributes({ selection: newSel })}
-              
-          />
             <img 
               src={ attributes.mobileImgUrl }
               onClick={ openEvent }
@@ -99,7 +90,7 @@ registerBlockType('cgb/alternativer', {
     const getImageButton = (openEvent) => {
       if(attributes.imageUrl) {
         return (
-          <div className="enclosure">
+          <div className="image_wrapper">
             <img 
               src={ attributes.imageUrl }
               onClick={ openEvent }
@@ -127,21 +118,36 @@ registerBlockType('cgb/alternativer', {
 
     return (
       <div className={ className }>
-      <p>{ __( 'Use a mobile and desktop image or just desktop.', 'image-selector-example' ) }</p>
-      <MediaUpload
-          title="Mobile Image"
-          onSelect={ media => { setAttributes({ imageAlt: media.alt, mobileImgUrl: media.url }); } }
-          type="image"
-          value={ attributes.imageID }
-          render={ ({ open }) => getMobileImageButton(open) }
+        <p>{ __( 'Use a mobile and desktop image or just desktop.', 'image-selector-example' ) }</p>
+        <RadioControl
+            label="Choose:"
+            help="If div, the image will be set as background"
+            selected={ attributes.selection || 'img' }
+            className="element_choice"
+            options={ [
+                { label: 'image', value: 'img' },
+                { label: 'div', value: 'div' },
+            ] }
+            onChange={ (newSel) => setAttributes({ selection: newSel })}
+            
         />
-        <MediaUpload
-          title="Desktop Image"
-          onSelect={ media => { setAttributes({ imageAlt: media.alt, imageUrl: media.url }); } }
-          type="image"
-          value={ attributes.imageID }
-          render={ ({ open }) => getImageButton(open) }
-        />
+        <p>{ attributes.radiosel }</p>
+        <div className="media_wrapper">
+          <MediaUpload
+            title="Mobile Image"
+            onSelect={ media => { setAttributes({ imageAlt: media.alt, mobileImgUrl: media.url }); } }
+            type="image"
+            value={ attributes.imageID }
+            render={ ({ open }) => getMobileImageButton(open) }
+          />
+          <MediaUpload
+            title="Desktop Image"
+            onSelect={ media => { setAttributes({ imageAlt: media.alt, imageUrl: media.url }); } }
+            type="image"
+            value={ attributes.imageID }
+            render={ ({ open }) => getImageButton(open) }
+          />
+        </div>
       </div>
     );
 
@@ -149,56 +155,78 @@ registerBlockType('cgb/alternativer', {
 
   save({ attributes }) {
 
-    const responsiveImage = (msrc, src, alt) => {
+    const responsiveImage = (msrc, src, alt, val) => {
+      if(msrc && !src) {
+        src = msrc;
+        msrc = undefined;
+      }
       if(msrc) {
         const urls = msrc + '|' + src;
-        if(alt) {
-          
+        if(val == 'img') {
+          if(alt) {
+            return (
+              <img 
+                data-back={ urls }
+                className="responsive_image" 
+                src=""
+                alt={ alt }
+              /> 
+            );
+          }
           return (
-            <img 
+            <img
               data-back={ urls }
               className="responsive_image" 
               src=""
-              alt={ alt }
+              alt=""
+              aria-hidden="true"
             /> 
           );
         }
-        return (
-          <img
-            data-back={ urls }
-            className="responsive_image" 
-            src=""
-            alt=""
-            aria-hidden="true"
-          /> 
-        );
+        else {
+          return (
+            <div 
+              data-back={ urls }
+              className="responsive_image" 
+            /> 
+          );
+        }
       }
       else {
-        if(alt) {
+        if(val == 'img') {
+          if(alt) {
+            return (
+              <img 
+                className="responsive_image" 
+                src={ src }
+                alt={ alt }
+              /> 
+            );
+          }
           return (
-            <img 
+            <img
               className="responsive_image" 
               src={ src }
-              alt={ alt }
+              alt=""
+              aria-hidden="true"
             /> 
           );
         }
-        return (
-          <img
-            className="responsive_image" 
-            src={ src }
-            alt=""
-            aria-hidden="true"
-          /> 
-        );
+        else {
+          return (
+            <div 
+              style="background: url(' + { src } + ')"
+              className="responsive_image" 
+            /> 
+          );
+        }
       }
-
       
     };
     
     return (
       <div className="responsive_image_block">
-        { responsiveImage(attributes.mobileImgUrl, attributes.imageUrl, attributes.imageAlt) }
+        { responsiveImage(attributes.mobileImgUrl, attributes.imageUrl, attributes.imageAlt, attributes.selection) }
         
       </div>
     );

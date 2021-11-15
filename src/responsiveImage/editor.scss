@@ -1,0 +1,25 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+.wp-block-cgb-responsive-image  {
+  .media_wrapper {
+  	display: flex;
+  }
+  .components-radio-control {
+  	padding-left: 1rem;
+  }
+  .components-base-control__label {
+  	display: block;
+  }
+  .components-radio-control__option {
+  	display: inline;
+  	padding-left: 1rem;
+  }
+  .components-radio-control .components-base-control__help {
+  	margin-top: .6rem;
+  }
+}
