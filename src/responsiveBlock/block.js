@@ -14,7 +14,8 @@ import './style.scss';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { RichText, MediaUpload, PlainText } = wp.editor;
 const { registerBlockType } = wp.blocks;
-const { Button } = wp.components;
+const { Button, RadioControl } = wp.components;
+//const { useState } = wp.element;
 
 // Import our CSS files
 import './style.scss';
@@ -26,7 +27,10 @@ registerBlockType('cgb/alternativer', {
   icon: 'saved',
   category: 'common',
   attributes: {
-    
+    selection: {
+      attribute: 'val',
+      selector: '.responsive_image'
+    },
     imageAlt: {
       attribute: 'alt',
       selector: '.responsive_image'
@@ -41,6 +45,8 @@ registerBlockType('cgb/alternativer', {
     }
   },
   edit({ attributes, className, setAttributes }) {
+    //const { attributes, setAttributes } = props;
+    //const [ option, setOption ] = useState( 'img' );
     const onRemoveMobileImage = () => {
             setAttributes( {
                 mobileImgUrl: undefined,
@@ -55,6 +61,17 @@ registerBlockType('cgb/alternativer', {
       if(attributes.mobileImgUrl) {
         return (
           <div className="enclosure">
+            <RadioControl
+              label="Element Type"
+              help="Use <img> or <div>"
+              selected={ attributes.selection || 'img' }
+              options={ [
+                  { label: 'Image', value: 'img' },
+                  { label: 'Div', value: 'div' },
+              ] }
+              onChange={ (newSel) => setAttributes({ selection: newSel })}
+              
+          />
             <img 
               src={ attributes.mobileImgUrl }
               onClick={ openEvent }
@@ -136,6 +153,7 @@ registerBlockType('cgb/alternativer', {
       if(msrc) {
         const urls = msrc + '|' + src;
         if(alt) {
+          
           return (
             <img 
               data-back={ urls }
