@@ -6,8 +6,6 @@
 
 `<img data-back="https://mysite.com/image-mobile.jpg|https://mysite.com/image-desktop.jpg">`
 
-(not implemented yet) If the attribute is applied to an element other than <img>, then the image will be set as a background image.
+If the attribute is applied to an element other than <img>, then the image will be set as a background image.
 
-## Contributing
-
-The plugin now creates a Gutenberg block called responsiveBlock which accepts a mobile and desktop image.
+The plugin also creates a Gutenberg block called Responsive Image which accepts a mobile and desktop image. The block was built using this toolkit https://github.com/ahmadawais/create-guten-block. The block will be available in your block editor after you install the plugin.

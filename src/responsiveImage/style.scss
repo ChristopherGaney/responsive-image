@@ -5,10 +5,15 @@
  */
 
 .wp-block-cgb-responsive-image  {
+  margin-top: 3rem;
+  &>p:first-child {
+    margin-top: 2rem;
+    margin-left: 1rem;
+  }
   div.responsive_image {
-  	background-size: cover;
-  	background-repeat: no-repeat;
-  	background-position: center;
+  	background-size: cover !important;
+  	background-repeat: no-repeat !important;
+  	background-position: center !important;
   	min-height: 400px;
   }
 }

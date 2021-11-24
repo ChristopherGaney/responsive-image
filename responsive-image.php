@@ -2,7 +2,7 @@
 /**
 Plugin Name: responsive-image
 Description: Javascript plugin to choose between small and large image when two images are supplied in data-back="" attribute.
-Version: 1.0.0
+Version: 1.0.1
 Author: Christopher Ganey
 Author URI: https://github.com/ChristopherGaney
 License: GPL2

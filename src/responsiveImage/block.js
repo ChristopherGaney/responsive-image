@@ -5,17 +5,15 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
-//https://css-tricks.com/learning-gutenberg-7-building-our-block-custom-card-block/
 
 //  Import CSS.
 import './editor.scss';
 import './style.scss';
 
-const { __ } = wp.i18n; // Import __() from wp.i18n
+const { __ } = wp.i18n; 
 const { RichText, MediaUpload, PlainText } = wp.editor;
 const { registerBlockType } = wp.blocks;
 const { Button, RadioControl } = wp.components;
-//const { useState } = wp.element;
 
 // Import our CSS files
 import './style.scss';
@@ -47,8 +45,6 @@ registerBlockType('cgb/responsive-image', {
     }
   },
   edit({ attributes, className, setAttributes }) {
-    //const { attributes, setAttributes } = props;
-    //const [ option, setOption ] = useState( 'img' );
     const onRemoveMobileImage = () => {
             setAttributes( {
                 mobileImgUrl: undefined,
@@ -213,9 +209,10 @@ registerBlockType('cgb/responsive-image', {
           );
         }
         else {
+          const str = "background: url(" + src + "})";
           return (
             <div 
-              style="background: url(' + { src } + ')"
+              style={ str }
               className="responsive_image" 
             /> 
           );
@@ -226,8 +223,8 @@ registerBlockType('cgb/responsive-image', {
     
     return (
       <div className="responsive_image_block">
-        { responsiveImage(attributes.mobileImgUrl, attributes.imageUrl, attributes.imageAlt, attributes.selection) }
-        
+        { responsiveImage(attributes.mobileImgUrl, attributes.imageUrl, 
+          attributes.imageAlt, attributes.selection) }
       </div>
     );
   }
